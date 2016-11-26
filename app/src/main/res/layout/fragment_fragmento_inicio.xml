@@ -1,0 +1,114 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ochoa.ochoa.semaforo.Fragmentos.FragmentoInicio">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Velocidad"
+                android:id="@+id/txtVelocidad"
+                android:layout_gravity="center_horizontal|top"
+                android:textSize="40dp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Latitud"
+                    android:id="@+id/txtLatitud"
+                    android:gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Longitud"
+                    android:id="@+id/txtLongitud"
+                    android:gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout>
+
+        </TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Alerta"
+            android:id="@+id/txtAlerta"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Estado Semaforo"
+            android:id="@+id/txtEstado"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:background="@color/colorGris"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="Agregar"
+            android:id="@+id/button"
+            android:layout_gravity="center_horizontal|bottom"
+            android:textSize="35dp"
+            android:layout_marginTop="10dp" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:text="VERDE"
+                android:id="@+id/btnVerde"
+                android:layout_weight="1"
+                android:textSize="25dp" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:text="ROJO"
+                android:id="@+id/btnRojo"
+                android:layout_weight="1"
+                android:textSize="25dp" />
+        </TableRow>
+    </LinearLayout>
+
+
+
+</FrameLayout>
