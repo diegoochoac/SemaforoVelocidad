@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -16,11 +17,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.ochoa.ochoa.semaforo.R;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -29,7 +32,9 @@ import java.util.Locale;
 public class FragmentoInicio extends Fragment implements LocationListener {
 
 
-    public TextView velocidad, latitud, longitd, alerta, estado;
+    public TextView velocidad, distancia, distanciaM, ubicacion, estado;
+
+    public TableRow Tbdistancia, Tbvelocidad;
 
     private LocationManager mLocationManager;
 
@@ -98,10 +103,16 @@ public class FragmentoInicio extends Fragment implements LocationListener {
         View view = inflater.inflate(R.layout.fragment_fragmento_inicio, container, false);
 
         velocidad = (TextView) view.findViewById(R.id.txtVelocidad);
-        longitd = (TextView) view.findViewById(R.id.txtLongitud);
-        latitud = (TextView) view.findViewById(R.id.txtLatitud);
-        alerta = (TextView) view.findViewById(R.id.txtAlerta);
+        distancia = (TextView) view.findViewById(R.id.txtDistancia);
+        distanciaM = (TextView) view.findViewById(R.id.textViewMetro);
+        ubicacion = (TextView) view.findViewById(R.id.txtUbicacion);
         estado =(TextView) view.findViewById(R.id.txtEstado);
+
+        distancia.setVisibility(View.INVISIBLE);
+        distanciaM.setVisibility(View.INVISIBLE);
+
+        Tbdistancia = (TableRow) view.findViewById(R.id.TableDistancia);
+        Tbvelocidad = (TableRow) view.findViewById(R.id.TableVelocidad);
 
         fotomultas = new ArrayList<>();
 
@@ -121,9 +132,9 @@ public class FragmentoInicio extends Fragment implements LocationListener {
         fotomulta4.setLatitude(3.387351);
         fotomulta4.setLongitude(-76.532458);
 
-        fotomulta5 = new Location("Ingenio");
-        fotomulta5.setLatitude(3.416253);
-        fotomulta5.setLongitude(-76.524352);
+        fotomulta5 = new Location("Prueba Casa");
+        fotomulta5.setLatitude(3.414307);
+        fotomulta5.setLongitude(-76.523944);
 
 
 
@@ -196,9 +207,9 @@ public class FragmentoInicio extends Fragment implements LocationListener {
     public void onLocationChanged(Location location) {
         Log.i(TAG, String.valueOf(location.getLatitude()));
         Log.i(TAG, String.valueOf(location.getLongitude()));
-        latitud.setText("Latitud: \n"+String.valueOf(location.getLatitude()));
-        longitd.setText("Longitud: \n"+String.valueOf(location.getLongitude()));
-        velocidad.setText(String.valueOf(location.getSpeed()*3.6)+"\nKm/h");
+
+        DecimalFormat df = new DecimalFormat("0.0");
+        velocidad.setText(String.valueOf(df.format(location.getSpeed()*3.6)));
 
         setLocation(location);
     }
@@ -206,19 +217,19 @@ public class FragmentoInicio extends Fragment implements LocationListener {
     @Override
     public void onStatusChanged(String s, int i, Bundle bundle) {
         Log.i(TAG, "Provider " + s + " has now status: " + i);
-        alerta.setText("Provider " + s + " has now status: " + i);
+        ubicacion.setText("Provider " + s + " has now status: " + i);
     }
 
     @Override
     public void onProviderEnabled(String s) {
         Log.i(TAG, "Provider " + s + " is enabled");
-        alerta.setText("Provider " + s + " is enabled");
+        ubicacion.setText("Provider " + s + " is enabled");
     }
 
     @Override
     public void onProviderDisabled(String s) {
         Log.i(TAG, "Provider " + s + " is disabled");
-        alerta.setText("Provider " + s + " is disabled");
+        ubicacion.setText("Provider " + s + " is disabled");
     }
 
     public void setLocation(Location loc) {
@@ -229,39 +240,56 @@ public class FragmentoInicio extends Fragment implements LocationListener {
                 List<Address> list = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
                 if (!list.isEmpty()) {
                     Address address = list.get(0);
-                    alerta.setText(address.getAddressLine(0));
+                    ubicacion.setText(address.getAddressLine(0));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-
+        String MensajeEstado="";
+        String MensajeDistancia="";
         for(int j = 0; j<= fotomultas.size()-1; j++){
 
             float distanceInMeters = loc.distanceTo(fotomultas.get(j));
+            DecimalFormat df = new DecimalFormat("0.0");
+
 
             if (distanceInMeters <= 1000){
 
+                distancia.setText(String.valueOf(df.format(distanceInMeters)));
+                distancia.setVisibility(View.VISIBLE);
+                distanciaM.setVisibility(View.VISIBLE);
+
                 if(distanceInMeters<=100){
-                    estado.setText("FOTOMULTA: ATENCION !!!!!!!!!!!!!!"+fotomultas.get(j).toString()+
-                            "\n Distancia: "+distanceInMeters+" Metros");
+                    MensajeEstado = MensajeEstado+(" FOTOMULTA "+
+                            "\n"+fotomultas.get(j).getProvider());
+                    estado.setBackgroundColor(getResources().getColor(R.color.GrisTransparente));
+                    Tbdistancia.setBackgroundColor(getResources().getColor(R.color.GrisTransparente));
                 }
                 if (loc.getSpeed()*3.6 >= 60){
-                    estado.setText("FOTOMULTA: DISMINUYA VELOCIDAD"+
-                            "\n Velocidad: "+ loc.getSpeed()*3.6+" Km/h"+
-                            "\n Distancia: "+distanceInMeters+" Metros");
+                    estado.setBackgroundColor(getResources().getColor(R.color.GrisTransparente));
+                    Tbvelocidad.setBackgroundColor(getResources().getColor(R.color.RojoTransparente));
+                }
+                if (loc.getSpeed()*3.6 <= 60){
+                    estado.setBackgroundColor(getResources().getColor(R.color.GrisTransparente));
+                    Tbvelocidad.setBackgroundColor(getResources().getColor(R.color.VerdeTransparente));
                 }
             }
-            else {
-                estado.setText(" NO HAY FOTOMULTA en 1KM");
-            }
-
         }
 
+        if(MensajeEstado !=""){
+            estado.setText(MensajeEstado);
 
+        }else{
+            estado.setText("NO HAY FOTOMULTAS");
+            estado.setBackgroundColor(Color.WHITE);
+            Tbdistancia.setBackgroundColor(Color.WHITE);
+            Tbvelocidad.setBackgroundColor(Color.WHITE);
 
-
+            distancia.setVisibility(View.INVISIBLE);
+            distanciaM.setVisibility(View.INVISIBLE);
+        }
 
     }
 }

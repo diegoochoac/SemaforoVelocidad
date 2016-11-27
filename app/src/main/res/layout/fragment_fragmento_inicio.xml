@@ -13,100 +13,105 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:id="@+id/TableVelocidad">
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="200dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Velocidad"
                 android:id="@+id/txtVelocidad"
                 android:layout_gravity="center_horizontal|top"
-                android:textSize="40dp"
+                android:textSize="120dp"
                 android:layout_marginTop="10dp"
                 android:textAlignment="center"
-                android:layout_weight="1" />
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_marginTop="10dp">
+                android:textStyle="bold"
+                android:text="0.0" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Latitud"
-                    android:id="@+id/txtLatitud"
-                    android:gravity="center_horizontal"
-                    android:textAlignment="center"
-                    android:layout_gravity="center_vertical" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Longitud"
-                    android:id="@+id/txtLongitud"
-                    android:gravity="center_horizontal"
-                    android:textAlignment="center"
-                    android:layout_marginTop="10dp" />
-            </LinearLayout>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="KM/H"
+                android:id="@+id/textViewVelocidad"
+                android:layout_weight="0.25"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:textIsSelectable="false" />
 
         </TableRow>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Alerta"
-            android:id="@+id/txtAlerta"
+            android:text="Ubicacion"
+            android:id="@+id/txtUbicacion"
             android:gravity="center_horizontal"
             android:textAlignment="center"
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Estado Semaforo"
+            android:text="Estado "
             android:id="@+id/txtEstado"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="10dp"
             android:textAlignment="center"
-            android:background="@color/colorGris"/>
+            android:layout_margin="10dp" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="Agregar"
-            android:id="@+id/button"
-            android:layout_gravity="center_horizontal|bottom"
-            android:textSize="35dp"
-            android:layout_marginTop="10dp" />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black"/>
+
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/TableDistancia"
+            android:layout_margin="10dp">
 
-            <Button
+            <TextView
                 android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:text="VERDE"
-                android:id="@+id/btnVerde"
+                android:layout_height="200dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/txtDistancia"
+                android:layout_gravity="center_horizontal|top"
+                android:textSize="120dp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
                 android:layout_weight="1"
-                android:textSize="25dp" />
+                android:textStyle="bold"
+                android:text="0.0" />
 
-            <Button
+            <TextView
                 android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:text="ROJO"
-                android:id="@+id/btnRojo"
-                android:layout_weight="1"
-                android:textSize="25dp" />
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="M"
+                android:id="@+id/textViewMetro"
+                android:layout_weight="0.1"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:textIsSelectable="false" />
+
         </TableRow>
+
     </LinearLayout>
 
 

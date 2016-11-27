@@ -5,4 +5,9 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="colorGris">#DEDEDE</color>
+
+    <color name="VerdeTransparente">#A5D6A7</color>
+    <color name="RojoTransparente">#EF9A9A</color>
+    <color name="GrisTransparente">#DEDEDE</color>
+
 </resources>
