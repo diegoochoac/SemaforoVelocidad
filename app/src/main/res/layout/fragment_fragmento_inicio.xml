@@ -82,22 +82,22 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/TableDistancia"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:gravity="bottom">
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="200dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/txtDistancia"
-                android:layout_gravity="center_horizontal|top"
-                android:textSize="120dp"
+                android:textSize="100dp"
                 android:layout_marginTop="10dp"
                 android:textAlignment="center"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:text="0.0" />
+                android:text="0.0"
+                android:layout_height="110dp" />
 
             <TextView
                 android:layout_width="0dp"

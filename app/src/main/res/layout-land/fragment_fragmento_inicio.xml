@@ -1,0 +1,136 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ochoa.ochoa.semaforo.Fragmentos.FragmentoInicio">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:id="@+id/TableVelocidad">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:id="@+id/txtVelocidad"
+                    android:layout_gravity="center_horizontal|top"
+                    android:textSize="120dp"
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:text="0.0"
+                    android:gravity="center" />
+            </TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="KM/H"
+                android:id="@+id/textViewVelocidad"
+                android:layout_weight="0.25"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:textIsSelectable="false"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Ubicacion"
+                android:id="@+id/txtUbicacion"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Estado "
+                android:id="@+id/txtEstado"
+                android:layout_gravity="center_vertical"
+                android:textAlignment="center"
+                android:layout_margin="10dp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black"/>
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/TableDistancia"
+                android:layout_margin="10dp"
+                android:gravity="bottom">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:id="@+id/txtDistancia"
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:text="0.0"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="50dp" />
+
+            </TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Metro"
+                android:id="@+id/textViewMetro"
+                android:layout_weight="0.1"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:textIsSelectable="false"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>

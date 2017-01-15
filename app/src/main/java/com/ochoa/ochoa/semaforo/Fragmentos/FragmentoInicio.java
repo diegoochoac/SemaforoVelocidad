@@ -10,7 +10,9 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -20,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.ochoa.ochoa.semaforo.MainActivity;
 import com.ochoa.ochoa.semaforo.R;
 
 import java.io.IOException;
@@ -62,8 +65,13 @@ public class FragmentoInicio extends Fragment implements LocationListener {
     private String mParam1;
     private String mParam2;
 
+    private String Velocidad;
+    private String Distancia;
+
 
     private OnFragmentInteractionListener mListener = null;
+
+    MediaPlayer mp;
 
     public FragmentoInicio() {
         // Required empty public constructor
@@ -114,6 +122,8 @@ public class FragmentoInicio extends Fragment implements LocationListener {
         Tbdistancia = (TableRow) view.findViewById(R.id.TableDistancia);
         Tbvelocidad = (TableRow) view.findViewById(R.id.TableVelocidad);
 
+        mp = MediaPlayer.create(getContext(),R.raw.alerta);
+
         fotomultas = new ArrayList<>();
 
         fotomulta1 = new Location("Foto Canchas");
@@ -132,11 +142,9 @@ public class FragmentoInicio extends Fragment implements LocationListener {
         fotomulta4.setLatitude(3.387351);
         fotomulta4.setLongitude(-76.532458);
 
-        fotomulta5 = new Location("Prueba Casa");
+        fotomulta5 = new Location("FOTO CASA");
         fotomulta5.setLatitude(3.414307);
         fotomulta5.setLongitude(-76.523944);
-
-
 
         fotomultas.add(0,fotomulta1);
         fotomultas.add(1,fotomulta2);
@@ -171,7 +179,7 @@ public class FragmentoInicio extends Fragment implements LocationListener {
     public void onResume() {
         super.onResume();
         Log.i(TAG, "onResume");
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1, this);
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, this);
         if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -183,6 +191,9 @@ public class FragmentoInicio extends Fragment implements LocationListener {
             return;
         }
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, this);
+
+        velocidad.setText(Velocidad);
+        distancia.setText(Distancia);
     }
 
     @Override
@@ -203,14 +214,14 @@ public class FragmentoInicio extends Fragment implements LocationListener {
         mLocationManager.removeUpdates(this);
     }
 
+
     @Override
     public void onLocationChanged(Location location) {
         Log.i(TAG, String.valueOf(location.getLatitude()));
         Log.i(TAG, String.valueOf(location.getLongitude()));
 
         DecimalFormat df = new DecimalFormat("0.0");
-        velocidad.setText(String.valueOf(df.format(location.getSpeed()*3.6)));
-
+        Velocidad = String.valueOf(df.format(location.getSpeed()*3.6));
         setLocation(location);
     }
 
@@ -233,19 +244,8 @@ public class FragmentoInicio extends Fragment implements LocationListener {
     }
 
     public void setLocation(Location loc) {
-        //Obtener la direcci—n de la calle a partir de la latitud y la longitud
-        if (loc.getLatitude() != 0.0 && loc.getLongitude() != 0.0) {
-            try {
-                Geocoder geocoder = new Geocoder(this.getContext(), Locale.getDefault());
-                List<Address> list = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
-                if (!list.isEmpty()) {
-                    Address address = list.get(0);
-                    ubicacion.setText(address.getAddressLine(0));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+
+        velocidad.setText(Velocidad);
 
         String MensajeEstado="";
         String MensajeDistancia="";
@@ -254,14 +254,30 @@ public class FragmentoInicio extends Fragment implements LocationListener {
             float distanceInMeters = loc.distanceTo(fotomultas.get(j));
             DecimalFormat df = new DecimalFormat("0.0");
 
-
             if (distanceInMeters <= 1000){
 
-                distancia.setText(String.valueOf(df.format(distanceInMeters)));
+                mp.start();
+                Distancia = String.valueOf(df.format(distanceInMeters));
+                distancia.setText(Distancia);
                 distancia.setVisibility(View.VISIBLE);
                 distanciaM.setVisibility(View.VISIBLE);
 
-                if(distanceInMeters<=100){
+                //Obtener la direcci—n de la calle a partir de la latitud y la longitud
+                if (loc.getLatitude() != 0.0 && loc.getLongitude() != 0.0) {
+                    try {
+                        Geocoder geocoder = new Geocoder(this.getContext(), Locale.getDefault());
+                        List<Address> list = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
+                        if (!list.isEmpty()) {
+                            Address address = list.get(0);
+                            ubicacion.setText(address.getAddressLine(0));
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if(distanceInMeters<=500){
+
                     MensajeEstado = MensajeEstado+(" FOTOMULTA "+
                             "\n"+fotomultas.get(j).getProvider());
                     estado.setBackgroundColor(getResources().getColor(R.color.GrisTransparente));
@@ -282,6 +298,7 @@ public class FragmentoInicio extends Fragment implements LocationListener {
             estado.setText(MensajeEstado);
 
         }else{
+
             estado.setText("NO HAY FOTOMULTAS");
             estado.setBackgroundColor(Color.WHITE);
             Tbdistancia.setBackgroundColor(Color.WHITE);
